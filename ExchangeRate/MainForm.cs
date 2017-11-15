@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,13 +13,13 @@ using System.Xml;
 
 namespace ExchangeRate
 {
-    public partial class Form1 : MaterialForm
+    public partial class MainForm : MaterialForm
     {
-        string url = "http://resources.finance.ua/ua/public/currency-cash.xml";
+        string url = File.ReadAllLines("../../URL.txt").First();
         XmlDocument data = new XmlDocument();
       
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -60,8 +61,8 @@ namespace ExchangeRate
                 RateTable.Rows[currentRow].Cells[0].Value = bank.ChildNodes[0].Attributes[0].Value.ToString(); //get bank name
                 XmlNode currencies = bank.SelectSingleNode("currencies/c[@id='" + valuta.SelectedItem.ToString() + "']");
 
-                RateTable.Rows[currentRow].Cells[1].Value = currencies.Attributes[1].Value.ToString(); //get valuta buying price
-                RateTable.Rows[currentRow].Cells[2].Value = currencies.Attributes[2].Value.ToString(); //get valuta selling price
+                RateTable.Rows[currentRow].Cells[1].Value = currencies.Attributes["br"].Value.ToString(); //get valuta buying price
+                RateTable.Rows[currentRow].Cells[2].Value = currencies.Attributes["ar"].Value.ToString(); //get valuta selling price
                 currentRow++;
 
             }
@@ -69,5 +70,10 @@ namespace ExchangeRate
 
         }
 
+        private void DictionaryButton_Click(object sender, EventArgs e)
+        {
+            DictionaryForm dictionary = new DictionaryForm();
+            dictionary.Show();
+        }
     }
 }
