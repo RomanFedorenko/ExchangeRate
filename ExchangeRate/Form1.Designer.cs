@@ -28,24 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.RateTable = new System.Windows.Forms.DataGridView();
             this.Bank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Buying = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Selling = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RateTable)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // RateTable
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.RateTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.RateTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Bank,
             this.Buying,
             this.Selling});
-            this.dataGridView1.Location = new System.Drawing.Point(75, 105);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(734, 192);
-            this.dataGridView1.TabIndex = 0;
+            this.RateTable.Location = new System.Drawing.Point(75, 105);
+            this.RateTable.Name = "RateTable";
+            this.RateTable.Size = new System.Drawing.Size(734, 192);
+            this.RateTable.TabIndex = 0;
             // 
             // Bank
             // 
@@ -72,19 +72,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(875, 397);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(874, 397);
+            this.Controls.Add(this.RateTable);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Exchange Rate";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RateTable)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView RateTable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Bank;
         private System.Windows.Forms.DataGridViewTextBoxColumn Buying;
         private System.Windows.Forms.DataGridViewTextBoxColumn Selling;
