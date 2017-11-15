@@ -32,6 +32,7 @@
             this.Bank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Buying = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Selling = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.valuta = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.RateTable)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,9 +43,9 @@
             this.Bank,
             this.Buying,
             this.Selling});
-            this.RateTable.Location = new System.Drawing.Point(75, 105);
+            this.RateTable.Location = new System.Drawing.Point(139, 105);
             this.RateTable.Name = "RateTable";
-            this.RateTable.Size = new System.Drawing.Size(734, 192);
+            this.RateTable.Size = new System.Drawing.Size(670, 415);
             this.RateTable.TabIndex = 0;
             // 
             // Bank
@@ -68,14 +69,24 @@
             this.Selling.Name = "Selling";
             this.Selling.ReadOnly = true;
             // 
+            // valuta
+            // 
+            this.valuta.FormattingEnabled = true;
+            this.valuta.Location = new System.Drawing.Point(12, 105);
+            this.valuta.Name = "valuta";
+            this.valuta.Size = new System.Drawing.Size(121, 21);
+            this.valuta.TabIndex = 1;
+            this.valuta.SelectedIndexChanged += new System.EventHandler(this.valuta_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(874, 397);
+            this.ClientSize = new System.Drawing.Size(865, 591);
+            this.Controls.Add(this.valuta);
             this.Controls.Add(this.RateTable);
             this.Name = "Form1";
-            this.Text = "Exchange Rate";
+            this.Text = "Курс валют";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.RateTable)).EndInit();
             this.ResumeLayout(false);
@@ -88,6 +99,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Bank;
         private System.Windows.Forms.DataGridViewTextBoxColumn Buying;
         private System.Windows.Forms.DataGridViewTextBoxColumn Selling;
+        private System.Windows.Forms.ComboBox valuta;
     }
 }
 
