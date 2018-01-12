@@ -25,11 +25,11 @@ namespace ExchangeRate
 
         private void DictionaryForm_Load(object sender, EventArgs e)
         {
-            data.Load(url);
-            XmlNodeList currencyList = data.SelectNodes("//c[@title]");
-            foreach (XmlNode currency in currencyList)
+            List<Valuta> valutas = Filler.GetValutasDictionary();
+            
+            foreach (Valuta valuta in valutas)
             {
-                string[] row = { currency.Attributes["id"].Value, currency.Attributes["title"].Value };
+                string[] row = { valuta.Cipher, valuta.FullName };
                 var listViewItem = new ListViewItem(row);
                 DictListView.Items.Add(listViewItem);
                 

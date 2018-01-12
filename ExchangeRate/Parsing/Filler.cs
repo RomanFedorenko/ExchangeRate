@@ -30,8 +30,8 @@ namespace ExchangeRate
                 {
 
                     Currency currValuta = new Currency(valuta.Attributes["id"].Value,
-                                                   Convert.ToSingle(valuta.Attributes["br"].Value, new CultureInfo("en-US")),
-                                                   Convert.ToSingle(valuta.Attributes["ar"].Value, new CultureInfo("en-US"))
+                                                   Single.Parse(valuta.Attributes["br"].Value,NumberStyles.Float, new CultureInfo("en-US")),
+                                                   Single.Parse(valuta.Attributes["ar"].Value, NumberStyles.Float, new CultureInfo("en-US"))
                         );
                     currBank.Valutas.Add(currValuta);
                 }
@@ -48,6 +48,17 @@ namespace ExchangeRate
         {
             List<Valuta> valutas = new List<Valuta>();
 
+            data.Load(url);
+            XmlNodeList valutasNodeList = data.SelectNodes("//c[@title]");
+            foreach (XmlNode valuta in valutasNodeList)
+            {
+                Valuta currvaluta = new Valuta();
+                currvaluta.FullName = valuta.Attributes["title"].Value;
+                currvaluta.Cipher = valuta.Attributes["id"].Value;
+
+                valutas.Add(currvaluta);
+
+            }
 
             return valutas;
         }

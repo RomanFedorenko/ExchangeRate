@@ -15,57 +15,54 @@ namespace ExchangeRate
 {
     public partial class MainForm : MaterialForm
     {
-        string url = File.ReadAllLines("../../URL.txt").First();
-        XmlDocument data = new XmlDocument();
-      
+            
 
         public MainForm()
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
         }
 
 
         private void Form1_Load(object sender, EventArgs e)
+        {                  
+            FillValutasCmbBox();
+            valuta.SelectedItem = "USD";
+            RefreshTable();            
+        }
+
+        private void FillValutasCmbBox()
         {
-            Filler.GetAllBanks();
-            LoadValuta();
-            RefreshTable();
-            
+            List<Valuta> valutas = Filler.GetValutasDictionary();
+            foreach (Valuta item in valutas)
+            {
+                valuta.Items.Add(item.Cipher);
+            }            
         }
 
         private void valuta_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RefreshTable();
-           
+            RefreshTable();           
         }
-        public void LoadValuta() {
-            data.Load(url);
-            XmlNodeList currencyList = data.SelectNodes("//c[@title]");
-            foreach (XmlNode currency in currencyList)
-            {
-
-                valuta.Items.Add(currency.Attributes["id"].Value);
-
-            }
-            valuta.SelectedItem = "USD";
-        }
+        
 
         public void RefreshTable() {
-            data.Load(url);
+            List<Bank> allbanks = Filler.GetAllBanks();
+
             RateTable.Rows.Clear();          
             int currentRow = 0;
-            XmlNodeList banksList = data.SelectNodes("//organization[currencies/c[@id='" + valuta.SelectedItem.ToString() + "']]"); //get all banks, which have USD
-            foreach (XmlNode bank in banksList)
-            {
 
+            IEnumerable<Bank> banks = from x in allbanks  // select banks, which have chosen valuta
+                                      where x.Valutas.Find(y=>y.Cipher==valuta.SelectedItem.ToString())!=null
+                                      select x;
+
+            foreach (Bank bank in banks)
+            {
                 RateTable.Rows.Add();
 
-                RateTable.Rows[currentRow].Cells[0].Value = bank.ChildNodes[0].Attributes[0].Value.ToString(); //get bank name
-                XmlNode currencies = bank.SelectSingleNode("currencies/c[@id='" + valuta.SelectedItem.ToString() + "']");
+                RateTable.Rows[currentRow].Cells[0].Value = bank.Name;
+                RateTable.Rows[currentRow].Cells[1].Value = bank.Valutas.Find(x=>x.Cipher.Equals(valuta.SelectedItem.ToString())).Buying.ToString(); //get valuta's buying price
+                RateTable.Rows[currentRow].Cells[2].Value = bank.Valutas.Find(x => x.Cipher.Equals(valuta.SelectedItem.ToString())).Selling.ToString(); //get valuta's selling price
 
-                RateTable.Rows[currentRow].Cells[1].Value = currencies.Attributes["br"].Value.ToString(); //get valuta buying price
-                RateTable.Rows[currentRow].Cells[2].Value = currencies.Attributes["ar"].Value.ToString(); //get valuta selling price
                 currentRow++;
 
             }
